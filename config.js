@@ -1,3 +1,7 @@
+/**
+ * Prepare default environment variables
+ * @type {{dev: {port: number, https: {port: number, key: string, cert: string}, env: string}, staging: {port: number, https: {port: number, key: string, cert: string}, env: string}, production: {port: number, https: {port: number, key: string, cert: string}, env: string}}}
+ */
 const environments = {
   dev: {
     port: 3000,
@@ -28,8 +32,9 @@ const environments = {
   }
 };
 
-
+// If the environment value isn't found, use the dev environment.
 let env = typeof(process.env.NODE_ENV) === 'string' ? process.env.NODE_ENV.toLowerCase() : 'dev';
+// Don't return a missing environment, if the provided environment string was not found, default back to the dev environment.
 let currentEnv = typeof(environments[env]) !== "undefined" ? environments[env] : environments.dev;
 
 module.exports = currentEnv;
